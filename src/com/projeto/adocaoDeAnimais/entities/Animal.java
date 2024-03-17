@@ -48,4 +48,14 @@ public class Animal {
     public void setRaca(String raca) {
         this.raca = raca;
     }
+
+    @Override
+    public String toString(){
+        return "Id: " + getId() + 
+                "\nNome: " + getNome() +
+                "\nData de nascimento: " + getDataNascimento() +
+                "\nPersonalidade: " + getPersonaldiade() +
+                "\nEspecie: " + getEspecie() +
+                "\nRaca: " + getRaca();
+    }
 }

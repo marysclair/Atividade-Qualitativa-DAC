@@ -39,4 +39,13 @@ public class Adocao {
     public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
+
+    @Override
+    public String toString(){
+        return "Id: " + getId() + 
+                "\nData: " + getData() +
+                "\nMotivo: " + getMotivo() +
+                "\nTutor:\n" + getTutor() +
+                "\nAnimal:\n" + getAnimal();
+    }
 }

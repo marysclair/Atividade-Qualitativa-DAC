@@ -37,4 +37,13 @@ public class Tutor {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    @Override
+    public String toString(){
+        return "Id: " + getId() + 
+                "\nNome: " + getNome() +
+                "\nTelefone: " + getTelefone() +
+                "\nEndereço: " + getEndereco() +
+                "\nCPF: " + getCpf();
+    } 
 }

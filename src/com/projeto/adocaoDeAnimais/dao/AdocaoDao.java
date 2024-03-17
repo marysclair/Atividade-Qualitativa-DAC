@@ -20,7 +20,7 @@ public class AdocaoDao {
     }
 
     public void insereAdocao(Adocao adocao) throws SQLException {
-        String sql = "insert into adocao (tutor_id, animal_id, data, motivo) VALUES (?, ?, ?, ?)";
+        String sql = "insert into adocao (idtutor, idanimal, data, motivo) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, adocao.getTutor().getId());
             stmt.setLong(2, adocao.getAnimal().getId());
@@ -39,10 +39,10 @@ public class AdocaoDao {
             while (rs.next()) {
                 adocao.setId(rs.getLong("id"));
                 TutorDao tutorDao = new TutorDao();
-                Tutor tutor = tutorDao.buscaTutorPorId(rs.getLong("tutot"));
+                Tutor tutor = tutorDao.buscaTutorPorId(rs.getLong("idtutor"));
                 adocao.setTutor(tutor);
                 AnimalDao animalDao = new AnimalDao();
-                Animal animal = animalDao.buscaAnimalPorId(rs.getLong("animal"));
+                Animal animal = animalDao.buscaAnimalPorId(rs.getLong("idanimal"));
                 adocao.setAnimal(animal);
                 adocao.setData(rs.getDate("data").toLocalDate());
                 adocao.setMotivo(rs.getString("motivo"));
@@ -62,10 +62,10 @@ public class AdocaoDao {
                     Adocao adocao = new Adocao();
                     adocao.setId(rs.getLong("id"));
                     TutorDao tutorDao = new TutorDao();
-                    Tutor tutor = tutorDao.buscaTutorPorId(rs.getLong("tutor"));
+                    Tutor tutor = tutorDao.buscaTutorPorId(rs.getLong("idtutor"));
                     adocao.setTutor(tutor);
                     AnimalDao animalDao = new AnimalDao();
-                    Animal animal = animalDao.buscaAnimalPorId(rs.getLong("animal"));
+                    Animal animal = animalDao.buscaAnimalPorId(rs.getLong("idanimal"));
                     adocao.setAnimal(animal);
                     adocao.setData(rs.getDate("data").toLocalDate());
                     adocao.setMotivo(rs.getString("motivo"));
