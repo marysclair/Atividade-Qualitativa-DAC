@@ -21,14 +21,18 @@ CREATE TABLE adocao (
     id SERIAL PRIMARY KEY,
     idTutor INT NOT NULL,
     idAnimal INT NOT NULL,
-    data VARCHAR(10) NOT NULL,
+    data Date NOT NULL,
     motivo VARCHAR(100) NOT NULL,
     FOREIGN KEY (idTutor) REFERENCES tutor(id),
     FOREIGN KEY (idAnimal) REFERENCES animal(id)
 );
 
 ```
-
+Se a tabela já estiver criada, faça o seguinte:
+```
+ALTER TABLE adocao DROP data;
+ALTER TABLE adocao ADD data Date;
+```
 ## Mapeamento lógico das tabelas:
 Tutor(Id, Nome, Telefone, Endereco, Cpf)
 Animal(Id, Idade, Nome, Personalidade, Especie, Raca)
