@@ -1,8 +1,12 @@
 package com.projeto.adocaoDeAnimais.entities;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class Animal {
     private Long id;
-    private int idade;
+    private LocalDate dataNascimento;
     private String nome;
     private String personaldiade;
     private String especie;
@@ -14,11 +18,11 @@ public class Animal {
     public void setId(Long id) {
         this.id = id;
     }
-    public int getIdade() {
-        return idade;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
-    public void setIdade(int idade) {
-        this.idade = idade;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
     public String getNome() {
         return nome;
@@ -29,7 +33,7 @@ public class Animal {
     public String getPersonaldiade() {
         return personaldiade;
     }
-    public void setPersonaldiade(String personaldiade) {
+    public void setPersonalidade(String personaldiade) {
         this.personaldiade = personaldiade;
     }
     public String getEspecie() {

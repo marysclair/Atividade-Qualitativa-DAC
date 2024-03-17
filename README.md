@@ -10,7 +10,7 @@ CREATE TABLE tutor (
 
 CREATE TABLE animal (
     id SERIAL PRIMARY KEY,
-    idade INT,
+    datanascimento Date,
     nome VARCHAR(20) NOT NULL,
     personalidade VARCHAR(50) NOT NULL,
     especie VARCHAR(20) NOT NULL,
