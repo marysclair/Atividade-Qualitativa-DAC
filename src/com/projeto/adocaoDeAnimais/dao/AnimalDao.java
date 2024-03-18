@@ -4,10 +4,7 @@ import com.projeto.adocaoDeAnimais.conexao.ConnectionFactory;
 import com.projeto.adocaoDeAnimais.entities.Animal;
 import com.projeto.adocaoDeAnimais.entities.Tutor;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class AnimalDao {
@@ -81,15 +78,15 @@ public class AnimalDao {
     }
 
     public Animal atualizaAnimal(Animal animal){
-        String sql = "update animal set nome=?, dataNascimento=?, personalidade=?, especie=?, raça=? where id=?";
+        String sql = "update animal set nome=?, dataNascimento=?, personalidade=?, especie=?, raca=? where id=?";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
             stmt.setString(1, animal.getNome());
-            stmt.setString(2, animal.getDataNascimento().toString());
+            stmt.setDate(2, Date.valueOf(animal.getDataNascimento().toString()));
             stmt.setString(3, animal.getPersonaldiade());
             stmt.setString(4, animal.getEspecie());
             stmt.setString(5, animal.getRaca());
+            stmt.setLong(6, animal.getId());
             stmt.execute();
             stmt.close();
             return animal;

@@ -7,6 +7,7 @@ import com.projeto.adocaoDeAnimais.entities.Adocao;
 import com.projeto.adocaoDeAnimais.entities.Animal;
 import com.projeto.adocaoDeAnimais.entities.Tutor;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -92,6 +93,7 @@ public class App {
                                 long idAtualizacao = inserir.nextLong();
                                 Tutor tutorParaAtualizar = tutorDao.buscaTutorPorId(idAtualizacao);
                                 if (tutorParaAtualizar != null) {
+                                    inserir.nextLine();
                                     System.out.println("Informe o novo telefone do tutor: ");
                                     tutorParaAtualizar.setTelefone(inserir.nextLine());
                                     System.out.println("Informe o novo endereco do tutor: ");
@@ -174,12 +176,14 @@ public class App {
                                     inserir.nextLine();
                                     System.out.println("Informe o ID do animal a ser atualizado: ");
                                     long idAtualizacao = inserir.nextLong();
+                                    inserir.nextLine();
                                     Animal animalParaAtualizar = animalDao.buscaAnimalPorId(idAtualizacao);
                                     if (animalParaAtualizar != null) {
                                         System.out.println("Informe o novo nome do animal: ");
                                         animalParaAtualizar.setNome(inserir.nextLine());
                                         System.out.println("Informe a nova data de nascimento do animal (yyyy-mm-dd): ");
                                         animalParaAtualizar.setDataNascimento(LocalDate.parse(inserir.next(), DATEFORMATTER));
+                                        inserir.nextLine();
                                         System.out.println("Informe a nova personalidade do animal: ");
                                         animalParaAtualizar.setPersonalidade(inserir.nextLine());
                                         System.out.println("Informe a nova espécie do animal: ");
@@ -199,7 +203,6 @@ public class App {
                                     animalDao.deletaAnimal(idExclusao);
                                     break;
                                 default:
-                                    System.out.println("OPCAO INVALIDA");
                                 break;
                         }
                     }while(opcao2!=0);
@@ -267,21 +270,60 @@ public class App {
                                 }
                             break;
                             case 4:
+                                System.out.println("Informe o ID da adoção que você deseja atualizar:");
+                                long idAdocao = inserir.nextLong();
                                 inserir.nextLine();
-                                System.out.println("Informe o ID do tutor a ser atualizado: ");
-                                long idAtualizacao = inserir.nextLong();
-                                Tutor tutorParaAtualizar = tutorDao.buscaTutorPorId(idAtualizacao);
-                                if (tutorParaAtualizar != null) {
-                                    System.out.println("Informe o novo telefone do tutor: ");
-                                    tutorParaAtualizar.setTelefone(inserir.nextLine());
-                                    System.out.println("Informe o novo endereco do tutor: ");
-                                    tutorParaAtualizar.setEndereco(inserir.nextLine());
-                                    tutorDao.atualizaTutor(tutorParaAtualizar);
-                                    System.out.println("Tutor atualizado com sucesso.");
+
+                                Adocao adocao = adocaoDao.buscaAdocaoPorId(idAdocao);
+
+                                if (adocao.getId() != null) {
+                                    System.out.println("Adoção encontrada:");
+                                    System.out.println("ID: " + adocao.getId());
+                                    System.out.println("ID do Tutor: " + adocao.getTutor().getId());
+                                    System.out.println("ID do Animal: " + adocao.getAnimal().getId());
+                                    System.out.println("Data: " + adocao.getData());
+                                    System.out.println("Motivo: " + adocao.getMotivo());
+
+                                    System.out.println("\nDigite os novos detalhes da adoção:");
+
+                                    Tutor novoTutor;
+                                    Animal novoAnimal;
+
+                                    try {
+                                        System.out.println("Novo ID do Tutor:");
+                                        long novoIdTutor = inserir.nextLong();
+                                        novoTutor = tutorDao.buscaTutorPorId(novoIdTutor);
+                                        inserir.nextLine();
+
+                                        System.out.println("Novo ID do Animal:");
+                                        long novoIdAnimal = inserir.nextLong();
+                                        novoAnimal = animalDao.buscaAnimalPorId(novoIdAnimal);
+                                        inserir.nextLine();
+                                    }catch (RuntimeException e){
+                                        System.out.println("Id inválido");
+                                        continue;
+                                    }
+
+                                    System.out.println("Nova data (AAAA-MM-DD):");
+                                    String novaDataStr = inserir.nextLine();
+                                    LocalDate novaData = LocalDate.parse(novaDataStr);
+
+                                    System.out.println("Novo motivo:");
+                                    String novoMotivo = inserir.nextLine();
+
+                                    adocao.setTutor(novoTutor);
+                                    adocao.setAnimal(novoAnimal);
+                                    adocao.setData(novaData);
+                                    adocao.setMotivo(novoMotivo);
+
+                                    adocaoDao.atualizaAdocao(adocao);
+                                    System.out.println("Adoção atualizada com sucesso.");
                                 } else {
-                                    System.out.println("Tutor não encontrado.");
+                                    System.out.println("Adoção não encontrada.");
                                 }
-                            break;
+                                break;
+
+
                             case 5:
                                 inserir.nextLine();
                                 System.out.println("Informe o ID da adocao a ser excluída: ");
@@ -291,7 +333,7 @@ public class App {
                             default:
                             break;
                         } 
-                    }while(opcao!=0);   
+                    }while(opcao2!=0);
                 break;
                 default:
                     break;
