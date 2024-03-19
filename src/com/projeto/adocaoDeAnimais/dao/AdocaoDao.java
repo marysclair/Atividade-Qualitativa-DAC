@@ -24,8 +24,7 @@ public class AdocaoDao {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setLong(1, adocao.getTutor().getId());
             stmt.setLong(2, adocao.getAnimal().getId());
-            System.out.println(java.sql.Date.valueOf(adocao.getData()));
-            stmt.setString(3, adocao.getData().toString());
+            stmt.setDate(3, java.sql.Date.valueOf(adocao.getData()));
             stmt.setString(4, adocao.getMotivo());
             stmt.execute();
         }
@@ -86,7 +85,7 @@ public class AdocaoDao {
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setLong(1, adocao.getTutor().getId());
             stmt.setLong(2, adocao.getAnimal().getId());
-            stmt.setString(3, adocao.getData().toString());
+            stmt.setDate(3, java.sql.Date.valueOf(adocao.getData()));
             stmt.setString(4, adocao.getMotivo());
             stmt.setLong(5, adocao.getId());
             stmt.executeUpdate();
