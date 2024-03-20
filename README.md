@@ -1,5 +1,17 @@
-## Scripts para criar as tabelas no banco:
-```
+# Atividade Qualitativa DAC 2024.1 - Adoção de Animais
+
+## Grupo
+- [Gabriella Braga](https://github.com/gabs44)
+- [Maria Clara](https://github.com/marysclair)
+
+## Sobre o projeto
+Atividade qualitativa sobre JDBC desenvolvida para a disciplina DAC 2024.1, com o tema 10: Adoção de Animais.
+
+## Diagrama relacional
+![Diagrama relacional](diagramaRelacional.png)
+
+## Scripts para criar as tabelas no banco
+```sql
 CREATE TABLE tutor (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
@@ -26,14 +38,3 @@ CREATE TABLE adocao (
     FOREIGN KEY (idTutor) REFERENCES tutor(id),
     FOREIGN KEY (idAnimal) REFERENCES animal(id)
 );
-
-```
-Se a tabela já estiver criada, faça o seguinte:
-```
-ALTER TABLE adocao DROP data;
-ALTER TABLE adocao ADD data Date;
-```
-## Mapeamento lógico das tabelas:
-Tutor(Id, Nome, Telefone, Endereco, Cpf)
-Animal(Id, Idade, Nome, Personalidade, Especie, Raca)
-Adocao(Id, IdTutor, IdAnimal, Data, Motivo)
